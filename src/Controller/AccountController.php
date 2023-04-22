@@ -41,7 +41,7 @@ class AccountController extends AbstractController
         /*
         * Request example:
         * {
-        * "username":"AlexSmecherul",
+        * "email":"AlexSmecherul@yahoo.ro",
         * "password":"alexESmecher1!A",
         * }
         */
