@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\AccountService;
+use App\Service\RouletteService;
 use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,6 +60,21 @@ class AccountController extends AbstractController
         }
         return new JsonResponse([
             "succes" => false
+        ]);
+    }
+    /*
+* Request example:
+* {
+* "username":"AlexSmecherul",
+* "password":"alexESmecher1!A",
+* "amount" : "50"
+* }
+*/
+
+    #[Route('/v1/spin', name: 'app_roulette', methods:['POST'])]
+    public function returnRoulette(){
+        return new JsonResponse([
+            "number" => (new RouletteService())->getNumber()
         ]);
     }
 }
