@@ -54,13 +54,23 @@ class AccountController extends AbstractController
 
         $response = (new AccountService())->checkAccount($account_info, $managerRegistry);
         if($response){
-            return new JsonResponse([
+            $response = new JsonResponse([
                 "succes" => true
             ]);
+
+            $response->setHeaders([
+                'Access-Control-Allow-Origin' => '*'
+            ]);
+            return $response;
         }
-        return new JsonResponse([
-            "succes" => false
+        $response = new JsonResponse([
+            "succes" => true
         ]);
+
+        $response->setHeaders([
+            'Access-Control-Allow-Origin' => '*'
+        ]);
+        return $response;
     }
     /*
 * Request example:
