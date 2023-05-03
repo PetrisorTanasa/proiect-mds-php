@@ -67,7 +67,7 @@ class AccountController extends AbstractController
             "succes" => true
         ]);
 
-        $response->setHeaders([
+        $response->sendHeaders([
             'Access-Control-Allow-Origin' => '*'
         ]);
         return $response;
@@ -83,8 +83,10 @@ class AccountController extends AbstractController
 
     #[Route('/v1/spin', name: 'app_roulette', methods:['POST'])]
     public function returnRoulette(){
-        return new JsonResponse([
+        $response = new JsonResponse([
             "number" => (new RouletteService())->getNumber()
         ]);
+
+        return $response;
     }
 }
