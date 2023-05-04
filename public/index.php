@@ -13,7 +13,7 @@ $trustedProxies = $trustedProxies ? explode(',', $trustedProxies) : [];
 if($trustedProxies) {
     Request::setTrustedProxies($trustedProxies, Request::HEADER_X_FORWARDED_AWS_ELB);
 }
-
+header('Access-Control-Allow-Origin: *');
 return function (array $context) {
     return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 };
