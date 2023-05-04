@@ -13,9 +13,10 @@ $trustedProxies = $trustedProxies ? explode(',', $trustedProxies) : [];
 if($trustedProxies) {
     Request::setTrustedProxies($trustedProxies, Request::HEADER_X_FORWARDED_AWS_ELB);
 }
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+
 return function (array $context) {
     return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 };

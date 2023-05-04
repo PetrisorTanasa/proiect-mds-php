@@ -17,13 +17,6 @@ framework:
     #fragments: true
     php_errors:
         log: true
-    middleware:
-        - 'Symfony\\Component\\HttpKernel\\Middleware\\CorsMiddleware'
-    cors:
-        allow_origin: [ '*' ]
-        allow_credentials: true
-        allow_headers: [ 'Content-Type', 'Authorization' ]
-        allow_methods: [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]
 
 when@test:
     framework:
