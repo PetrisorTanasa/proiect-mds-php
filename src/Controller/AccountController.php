@@ -11,6 +11,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Nelmio\CorsBundle\Annotation\Cors;
+
+#[NelmioCors(
+    allowOrigin: '*',
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 3600,
+)]
 
 class AccountController extends AbstractController
 {
@@ -54,13 +62,23 @@ class AccountController extends AbstractController
 
         $response = (new AccountService())->checkAccount($account_info, $managerRegistry);
         if($response){
-            return new JsonResponse([
+            $response = new JsonResponse([
                 "succes" => true
             ]);
+
+            $response->setHeaders([
+                'Access-Control-Allow-Origin' => '*'
+            ]);
+            return $response;
         }
-        return new JsonResponse([
-            "succes" => false
+        $response = new JsonResponse([
+            "succes" => true
         ]);
+
+        $response->sendHeaders([
+            'Access-Control-Allow-Origin' => '*'
+        ]);
+        return $response;
     }
     /*
 * Request example:
@@ -73,8 +91,11 @@ class AccountController extends AbstractController
 
     #[Route('/v1/spin', name: 'app_roulette', methods:['POST'])]
     public function returnRoulette(){
-        return new JsonResponse([
+        $response = new JsonResponse([
             "number" => (new RouletteService())->getNumber()
         ]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 }
